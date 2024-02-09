@@ -23,7 +23,7 @@ export class ArticleComponent {
 
     // if (this.platform.is('mobile') || this.platform.is('hybrid')) {
       if (this.platform.is('ios') || this.platform.is('android')) {
-      console.log('Platform: ', this.platform.is('ios') ? 'iOS' : 'Android');
+      // console.log('Platform: ', this.platform.is('ios') ? 'iOS' : 'Android');
       Browser.open({ url: this.article.url });
       return;
     }
