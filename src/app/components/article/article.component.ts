@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Browser } from '@capacitor/browser';
-import { Platform } from '@ionic/angular';
+import { ActionSheetController, Platform } from '@ionic/angular';
 import { Article } from 'src/app/interfaces';
 
 @Component({
@@ -13,11 +13,48 @@ export class ArticleComponent {
   @Input() article!: Article;
   @Input() index!: number;
   constructor(
-    private platform: Platform
+    private platform: Platform,
+    private actionSheetCtrl: ActionSheetController
   ) { }
   
-  onClick() {
-    throw new Error('Method not implemented.');
+  async onClickMenu() {
+    const actionSheet = await this.actionSheetCtrl.create({
+      header: 'Options',
+      buttons: [
+        {
+          text: 'Share',
+          icon: 'share-outline',
+          handler: () => {
+            this.onShareArticle()
+          }
+        },
+        {
+          text: 'Favorite',
+          icon: 'heart-outline',
+          // cssClass: 'action-dark',
+          handler: () => {
+            this.onToogleFavorite()
+          }
+        },
+        {
+          text: 'Cancel',
+          icon: 'close-outline',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    })
+
+    actionSheet.present();
+  }
+
+  onShareArticle(){
+    console.log('onShareArticle()');
+  }
+  onToogleFavorite(){
+    console.log('onToogleFavorite()');
   }
   openArticle() {
 
